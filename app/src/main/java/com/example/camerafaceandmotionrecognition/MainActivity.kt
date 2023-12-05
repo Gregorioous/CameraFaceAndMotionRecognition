@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.ImageView.ScaleType
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,11 +18,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
@@ -150,7 +146,7 @@ fun Controls(
 private fun ListenableFuture<ProcessCameraProvider>.configureCamera(
     previewView: PreviewView,
     lifecycleOwner: LifecycleOwner,
-    cameraSelector: CameraSelector,
+    cameraLens: Int,
     context: Context
 ): ListenableFuture<ProcessCameraProvider> {
     addListener({
@@ -164,7 +160,9 @@ private fun ListenableFuture<ProcessCameraProvider>.configureCamera(
             get().apply {
                 unbindAll()
                 bindToLifecycle(
-                    lifecycleOwner, cameraSelector, preview
+                    lifecycleOwner,
+                    CameraSelector.Builder().requireLensFacing(cameraLens).build(),
+                    preview
                 )
             }
         } catch (exc: Exception) {
