@@ -22,7 +22,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -72,6 +73,8 @@ dependencies {
 
     // CameraX Camera2 extensions
     implementation("androidx.camera:camera-camera2:${rootProject.extra["camerax_version"]}")
+
+    implementation("androidx.compose.material:material-icons-extended:${rootProject.extra["compose_version"]}")
 
     // CameraX Lifecycle library
     implementation("androidx.camera:camera-lifecycle:${rootProject.extra["camerax_version"]}")

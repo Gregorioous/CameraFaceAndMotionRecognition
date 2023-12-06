@@ -5,7 +5,7 @@ plugins {
 }
 
 buildscript {
-    val compose_version by extra("1.0.0-beta01")
+    val compose_version by extra("1.4.2")
     val camerax_version by extra("1.0.0-rc01")
 }
 
